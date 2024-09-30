@@ -14,10 +14,18 @@ const todoSlice = createSlice({
                 completed: false                 // Initial completed status is false
             });
         },
+        updateTodo(state,action){
+            const {id,newTodo} = action.payload
+            const updatedTodo = state.todos.find((todo) => todo.id === id)
+            if(updatedTodo){
+                updatedTodo.todo = newTodo;
+                updatedTodo.time = new Date().toLocaleString()
+            }
+        }, 
         deleteTodo(state,action){
            state.todos = state.todos.filter((todo)=> todo.id !== action.payload)
         }
     }
 })
-export const {createTodo,deleteTodo} = todoSlice.actions
+export const {createTodo,deleteTodo,updateTodo} = todoSlice.actions
 export default todoSlice.reducer
